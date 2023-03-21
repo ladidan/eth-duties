@@ -5,6 +5,7 @@ from logging import getLogger
 from time import sleep
 from typing import Callable, List
 
+from cicd.exit import exit_on_cicd_mode
 from cli.arguments import ARGUMENTS
 from constants.program import GRACEFUL_KILLER
 from fetcher import fetch
@@ -72,6 +73,7 @@ if __name__ == "__main__":
     upcoming_duties: List[ValidatorDuty] = []
     while not GRACEFUL_KILLER.kill_now:
         upcoming_duties = __fetch_validator_duties(upcoming_duties)
+        exit_on_cicd_mode(ARGUMENTS.mode, upcoming_duties)
         log_time_to_next_duties(upcoming_duties)
         sleep(ARGUMENTS.interval)
     main_logger.info("Happy staking. See you for next maintenance \U0001F642 !")

@@ -5,6 +5,8 @@ Module for parsing CLI arguments
 from argparse import ArgumentError, ArgumentParser, FileType, Namespace
 from typing import List
 
+from cli.argument_types import Mode
+
 
 def __get_raw_arguments() -> Namespace:
     """Parses cli arguments passed by the user
@@ -68,6 +70,13 @@ def __get_raw_arguments() -> Namespace:
         ),
         action="store",
         default=50,
+    )
+    parser.add_argument(
+        "--mode",
+        help="The mode which eth-duties will run with. Values are 'log' or 'cicd' (default: 'log')",
+        type=Mode,
+        choices=Mode,
+        default=Mode.LOG,
     )
     parser.add_argument(
         "--omit-attestation-duties",
