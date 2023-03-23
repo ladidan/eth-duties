@@ -8,4 +8,6 @@ class Mode(Enum):
     """Defines the mode at which eth-duties will run"""
 
     LOG = "log"
-    CI_CD = "cicd"
+    CICD_EXIT = "cicd_exit"
+    CICD_WAIT = "cicd_wait"
+    EXIT_GRACEFULLY = "exit"

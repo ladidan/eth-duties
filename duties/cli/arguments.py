@@ -64,6 +64,7 @@ def __get_raw_arguments() -> Namespace:
     )
     parser.add_argument(
         "--max-attestation-duty-logs",
+        type=int,
         help=(
             "The max. number of validators for which attestation duties will be logged "
             "(default: 50)"
@@ -73,10 +74,23 @@ def __get_raw_arguments() -> Namespace:
     )
     parser.add_argument(
         "--mode",
-        help="The mode which eth-duties will run with. Values are 'log' or 'cicd' (default: 'log')",
+        help=(
+            "The mode which eth-duties will run with. "
+            "Values are 'log', 'cicd_exit', 'cicd_wait' or 'exit' (default: 'log')"
+        ),
         type=Mode,
         choices=Mode,
         default=Mode.LOG,
+    )
+    parser.add_argument(
+        "--mode-cicd-waiting-time",
+        type=int,
+        help=(
+            "The max. waiting time until eth-duties exits in cicd_wait mode "
+            "(default 780 sec. (approx. 2 epochs))"
+        ),
+        action="store",
+        default=780,
     )
     parser.add_argument(
         "--omit-attestation-duties",
